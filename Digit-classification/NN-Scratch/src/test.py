@@ -4,11 +4,11 @@ import cv2
 import pickle
 from main import load_data
 from network import Network
-# import os
+import os
 
 
 def load_model(path):
-    with open(path, "rb") as f:
+    with open(path, 'rb') as f:
         model = pickle.load(f)
     return model
 
@@ -29,7 +29,7 @@ def load_random_image(x_test):
     img = x_test[idx]
     return img
 
-def test_samples(x_test, num_samples):
+def test_samples(model, x_test, num_samples):
     for _ in range(num_samples):
         img = load_random_image(x_test)
         show_image(img)
@@ -37,12 +37,13 @@ def test_samples(x_test, num_samples):
         prediction = model.predict(processed_img)
         print(f"Prediction is: {np.argmax(prediction)}")
 
-(x_train, y_train), (x_test, y_test) = load_data()
-PATH = '../models/model_google_colab.pkl'
-model = load_model(PATH)
-test_samples(x_test, 10)
+def main():
+    (x_train, y_train), (x_test, y_test) = load_data()
+    PATH = '../models/model_google_colab2.pkl'
+    model = load_model(PATH)
+    test_samples(model, x_test, 10)
 
-# image_number = 1
+# image_number = 8
 # while os.path.isfile(f"../tests/digit{image_number}.png"):
 #     try:
 #         img = read_image(f"../tests/digit{image_number}.png")
@@ -55,3 +56,7 @@ test_samples(x_test, 10)
 #         break
 #     finally:
 #         image_number += 1
+
+
+if __name__ == "__main__":
+    main()

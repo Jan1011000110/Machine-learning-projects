@@ -30,9 +30,9 @@ class Network():
         dB = delta
         grads_W.append(dW)
         grads_B.append(dB)
-        for l in reversed(range(1, l)):
-            delta = np.dot(self.weights[l].T, delta) * relu_derivative(zs[l-1])
-            dW = np.dot(delta, activations[l-1].T)
+        for i in reversed(range(1, l)):
+            delta = np.dot(self.weights[i].T, delta) * relu_derivative(zs[i-1])
+            dW = np.dot(delta, activations[i-1].T)
             dB = delta
             grads_W.append(dW)
             grads_B.append(dB)
